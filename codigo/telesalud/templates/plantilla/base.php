@@ -1,0 +1,144 @@
+<?php
+	$titulo = "Pagina Base";
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="tgestiona">
+    <link rel="shortcut icon" href="images/favicon.html">
+    <title><?= $titulo ?></title>
+    <!--Core CSS -->
+    <link href="bs3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-reset.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet"/>
+</head>
+<body>
+<section id="container">
+    <!--header start-->
+    <header class="header fixed-top clearfix">
+        <!--logo start-->
+        <div class="brand">
+            <a href="index-2.html" class="logo">
+                <img src="images/logo.png" alt="">
+            </a>
+            <div class="sidebar-toggle-box">
+                <div class="fa fa-bars"></div>
+            </div>
+        </div>
+        <!--logo end-->
+        <div class="nav notify-row" id="top_menu">
+            <!--  notification start -->
+            <ul class="nav top-menu">
+                <!-- settings start -->
+            </ul>
+            <!--  notification end -->
+        </div>
+        <div class="top-nav clearfix">
+            <!--search & user info start-->
+            <ul class="nav pull-right top-menu">
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle icon-user" href="#">
+                        <i class="fa fa-user"></i>
+                        <span class="username">John Doe</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu extended logout">
+                        <li><a href="login.html"><i class="fa fa-key"></i> Log Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!--search & user info end-->
+        </div>
+    </header>
+    <!--header end-->
+    <aside>
+        <div id="sidebar" class="nav-collapse">
+            <!-- sidebar menu start-->
+            <div class="leftside-navigation">
+                <ul class="sidebar-menu" id="nav-accordion">
+                    <li>
+                        <a href="index-2.html">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="javascript:;">
+                            <i class="fa fa-laptop"></i>
+                            <span>Layouts</span>
+                        </a>
+                        <ul class="sub">
+                            <li><a href="boxed_page.html">Boxed Page</a></li>
+                            <li class="active"><a href="base.html">Horizontal Menu</a></li>
+                            <li><a href="language_switch.html">Language Switch Bar</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="login.html">
+                            <i class="fa fa-user"></i>
+                            <span>Login Page</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <!-- page start-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            Heading goes here..
+                            <span class="tools pull-right">
+                            <a href="javascript:;" class="fa fa-chevron-down"></a>
+                            <a href="javascript:;" class="fa fa-cog"></a>
+                            <a href="javascript:;" class="fa fa-times"></a>
+                         </span>
+                        </header>
+                        <div class="panel-body">
+                            This is a sample page
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <!-- page end-->
+        </section>
+    </section>
+    <!--main content end-->
+</section>
+
+<!-- Placed js at the end of the document so the pages load faster -->
+
+<!--Core js-->
+<script src="js/jquery.js"></script>
+<script src="bs3/js/bootstrap.min.js"></script>
+<script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="js/jquery.scrollTo.min.js"></script>
+<script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
+<!--Easy Pie Chart-->
+<script src="js/easypiechart/jquery.easypiechart.js"></script>
+<!--Sparkline Chart-->
+<script src="js/sparkline/jquery.sparkline.js"></script>
+<!--jQuery Flot Chart-->
+<script src="js/flot-chart/jquery.flot.js"></script>
+<script src="js/flot-chart/jquery.flot.tooltip.min.js"></script>
+<script src="js/flot-chart/jquery.flot.resize.js"></script>
+<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
+
+
+<!--common script init for all pages-->
+<script src="js/scripts.js"></script>
+
+</body>
+</html>

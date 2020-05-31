@@ -1,0 +1,2 @@
+1. Restaurar la base de datos "telesalud"
+2. La carpeta raiz del codigo debe llamarse "telesalud" en el xamp
