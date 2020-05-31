@@ -1,5 +1,5 @@
 <?php
-$titulo      = "Sistema de Pedidos";
+$titulo      = "Telemedicina V0.1";
 $this->ci    = &get_instance();
 $ses         = $this->session->userdata("ses");
 $per_noc     = $ses['usu_nombres'] . ' ' . $ses['usu_apellidos'];
