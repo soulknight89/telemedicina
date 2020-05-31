@@ -6,7 +6,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="ThemeBucket">
 	<link rel="shortcut icon" href="images/favicon.html">
-	<title>Sistema de Pedidos</title>
+	<title>Telemedicina V0.1</title>
 	<!--Core CSS -->
 	<link href="<?= template_url("bs3/css/bootstrap.min.css") ?>" rel="stylesheet">
 	<link href="<?= template_url("css/bootstrap-reset.css") ?>" rel="stylesheet">
