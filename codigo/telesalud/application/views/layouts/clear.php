@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>
-		Gestion de Pedidos V&V
+		Telemedicina V0.1
 	</title>
 	<link href="<?= template_url("bs3/css/bootstrap.min.css") ?>" rel="stylesheet">
 	<link href="<?= template_url("font-awesome/css/font-awesome.css") ?>" rel="stylesheet"/>
