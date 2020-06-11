@@ -71,7 +71,6 @@
 								<th>Codigo</th>
 							</thead>
 							<tbody>
-
 							</tbody>
 						</table>
 					</div>
@@ -80,7 +79,7 @@
 			<div class="panel-footer pull-right">
 					<input type="button" class="btn btn-warning" value="Volver"
 						   onclick="location.href = base_url+'mantenimiento/doctores';"/>
-					<button class="btn btn-success">Agregar Doctor</button>
+					<button class="btn btn-success">Completar Registro</button>
 			</div>
 			<?php echo form_close(); ?>
 		</section>

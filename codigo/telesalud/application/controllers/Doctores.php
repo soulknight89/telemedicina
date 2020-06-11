@@ -19,7 +19,7 @@ class Doctores extends MY_Controller
 
 	public function nuevo()
 	{
-		$this->layout->setLayout("clear");
+		//$this->layout->setLayout("clear");
 		$this->db->trans_commit();
 		$data['usuario'] = (object) $this->session->userdata("ses");
 		//$data['puntos']  = $this->Puntos_model->puntos_venta();

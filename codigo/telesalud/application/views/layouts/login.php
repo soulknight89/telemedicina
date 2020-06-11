@@ -6,21 +6,74 @@
 	<meta name="description" content="">
 	<meta name="author" content="ThemeBucket">
 	<link rel="shortcut icon" href="images/favicon.html">
-	<title>Telemedicina V0.1</title>
+	<title>Dr. a un click</title>
 	<!--Core CSS -->
-	<link href="<?= template_url("bs3/css/bootstrap.min.css") ?>" rel="stylesheet">
-	<link href="<?= template_url("css/bootstrap-reset.css") ?>" rel="stylesheet">
-	<link href="<?= template_url("font-awesome/css/font-awesome.css") ?>" rel="stylesheet"/>
-	<link href="<?= template_url("css/style.css") ?>" rel="stylesheet">
-	<link href="<?= template_url("css/style-responsive.css") ?>" rel="stylesheet">
+	<link rel="stylesheet" href="<?= template_url("assets/vendor/fonts/fontawesome.css") ?>">
+	<link rel="stylesheet" href="<?= template_url("assets/vendor/fonts/ionicons.css") ?>">
+	<link rel="stylesheet" href="<?= template_url("assets/vendor/fonts/linearicons.css") ?>">
+	<link rel="stylesheet" href="<?= template_url("assets/vendor/fonts/open-iconic.css") ?>">
+	<link rel="stylesheet" href="<?= template_url("assets/vendor/fonts/pe-icon-7-stroke.css") ?>">
+	<!-- Core stylesheets -->
+	<link rel="stylesheet" href="<?= template_url("assets/vendor/css/rtl/bootstrap.css") ?>" class="theme-settings-bootstrap-css">
+	<link rel="stylesheet" href="<?= template_url("assets/vendor/css/rtl/appwork.css") ?>" class="theme-settings-appwork-css">
+	<link rel="stylesheet" href="<?= template_url("assets/vendor/css/rtl/theme-corporate.css") ?>" class="theme-settings-theme-css">
+	<link rel="stylesheet" href="<?= template_url("assets/vendor/css/rtl/colors.css") ?>" class="theme-settings-colors-css">
+	<link rel="stylesheet" href="<?= template_url("assets/vendor/css/rtl/uikit.css") ?>">
+	<link rel="stylesheet" href="<?= template_url("assets/css/demo.css") ?>">
 	<!-- Just for debugging purposes. Don't actually copy this line! -->
+	<!-- Load polyfills -->
+	<script src="<?= template_url("assets/vendor/js/polyfills.js")?>"></script>
+	<script>document['documentMode']===10&&document.write('<script src="https://polyfill.io/v3/polyfill.min.js?features=Intl.~locale.en"><\/script>')</script>
+
+	<script src="<?= template_url("assets/vendor/js/material-ripple.js")?>"></script>
+	<script src="<?= template_url("assets/vendor/js/layout-helpers.js")?>"></script>
+
+	<!-- Theme settings -->
+	<!-- This file MUST be included after core stylesheets and layout-helpers.js in the <head> section -->
+	<script src="<?= template_url("assets/vendor/js/theme-settings.js")?>"></script>
+	<script>
+		window.themeSettings = new ThemeSettings({
+			cssPath: '<?= template_url("assets/vendor/css/rtl/")?>',
+			themesPath: '<?= template_url("assets/vendor/css/rtl/")?>'
+		});
+	</script>
+
+	<!-- Core scripts -->
+	<script src="<?= template_url("assets/vendor/js/pace.js")?>"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Libs -->
+	<link rel="stylesheet" href="<?= template_url("assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css")?>">
+	<!-- Page -->
+	<link rel="stylesheet" href="<?= template_url("assets/vendor/css/pages/authentication.css")?>">
 </head>
-<body class="login-body">
-<div class="container">
-	<?= $content_for_layout; ?>
+<body>
+<div class="page-loader">
+	<div class="bg-primary"></div>
 </div>
-<!--Core js-->
-<script src="<?= template_url("js/jquery.js") ?>"></script>
-<script src="<?= template_url("bs3/js/bootstrap.min.js") ?>"></script>
+<div class="authentication-wrapper authentication-4 px-4">
+	<div class="authentication-inner py-5">
+		<!-- Logo -->
+		<div class="d-flex justify-content-center align-items-center mb-5">
+			<div class="ui-w-60">
+				<div class="w-100 position-relative" style="padding-bottom: 54%">
+					<img style="max-width: 100px;" src="<?= template_url("assets/img/doctor.svg")?>" title="Dr. Online" alt="Dr. Online">
+				</div>
+			</div>
+		</div>
+		<!-- / Logo -->
+		<?= $content_for_layout; ?>
+	</div>
+</div>
+<!-- Core scripts -->
+<script src="<?= template_url("assets/vendor/libs/popper/popper.js") ?>"></script>
+<script src="<?= template_url("assets/vendor/js/bootstrap.js") ?>"></script>
+<script src="<?= template_url("assets/vendor/js/sidenav.js") ?>"></script>
+
+<!-- Libs -->
+<script src="<?= template_url("assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js") ?>"></script>
+
+<!-- Demo -->
+<script src="<?= template_url("assets/js/demo.js") ?>"></script>
 </body>
 </html>

@@ -36,7 +36,7 @@ if (is_cli()) {
 	$allowed_hosts = ["181.65.164.179:1005","172.30.5.10","200.48.131.32","gicsapps.com","gicsapss.com:8080","www.gicsapps.com","www.gicsapss.com:8080"];
 	$config["base_url"] = in_array($host, $allowed_hosts) ? $protocol . $host . "/telesalud/" : $protocol . $host . "/telesalud/";
 }
-$config["template_url"] = $config["base_url"] . "templates/plantilla";
+$config["template_url"] = $config["base_url"] . "templates/appwork";
 /*
 |--------------------------------------------------------------------------
 | Index File
