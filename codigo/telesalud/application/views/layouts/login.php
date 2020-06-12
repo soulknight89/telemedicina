@@ -56,9 +56,7 @@
 		<!-- Logo -->
 		<div class="d-flex justify-content-center align-items-center mb-5">
 			<div class="ui-w-60">
-				<div class="w-100 position-relative" style="padding-bottom: 54%">
-					<img style="max-width: 100px;" src="<?= template_url("assets/img/doctor.svg")?>" title="Dr. Online" alt="Dr. Online">
-				</div>
+				<img src="<?= template_url("assets/img/drclick.png")?>" width="150px" alt="logo" title="logo"/>
 			</div>
 		</div>
 		<!-- / Logo -->

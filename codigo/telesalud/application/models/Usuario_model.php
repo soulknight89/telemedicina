@@ -29,9 +29,9 @@ class Usuario_model extends CI_Model
 	 */
 	public function update_usuario($usu, $data)
 	{
-		$this->db->where("idUsuario", $usu);
+		$this->db->where("idUser", $usu);
 
-		return $this->db->update("or_usuarios", $data);
+		return $this->db->update("usr_usuarios", $data);
 	}
 
 	/**
@@ -96,8 +96,13 @@ class Usuario_model extends CI_Model
             USU.idUser as idUsuario, 
             USU.email, 
             concat(USU.nombre_primer,' ', USU.nombre_segundo) as nombres,
+            USU.nombre_primer,
+            USU.nombre_segundo,            
             USU.password as passfrase,
             concat(USU.apellido_primer,' ', USU.apellido_segundo) as apellidos,
+            USU.apellido_primer,
+            USU.apellido_segundo,
+            concat(USU.nombre_primer,' ', USU.apellido_primer) as nombre_mostrar,
             USU.telefono, 	
             USU.idPerfil,
             PER.nombre AS perfil", false
@@ -183,7 +188,7 @@ class Usuario_model extends CI_Model
 	public function correo_existe($correo)
 	{
 		$this->db->select("*", false);
-		$this->db->from("or_usuarios");
+		$this->db->from("usr_usuarios");
 		$this->db->where('email', $correo);
 
 		return $this->db->get()->result();

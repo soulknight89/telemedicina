@@ -7,6 +7,7 @@ class Doctores extends MY_Controller
 	{
 		parent::__construct();
 		$this->load->model('Doctores_model');
+		$this->load->model('Usuario_model');
 		//$this->load->model('Puntos_model');
 	}
 
@@ -22,7 +23,6 @@ class Doctores extends MY_Controller
 		//$this->layout->setLayout("clear");
 		$this->db->trans_commit();
 		$data['usuario'] = (object) $this->session->userdata("ses");
-		//$data['puntos']  = $this->Puntos_model->puntos_venta();
 		if (!$this->input->post()) {
 			if ($this->db->trans_status() == false) {
 				header("Location: " . base_url("mantenimiento/doctores"));
@@ -34,23 +34,35 @@ class Doctores extends MY_Controller
 			}
 		} else {
 			$this->form_validation->set_rules(
-				"nombres", "Nombres", "trim|required", ['required' => 'Debe ingresar los %s.']
+				"primer_nombre", "Primer Nombre", "trim|required", ['required' => 'Debe ingresar el campo %s.']
 			);
 			$this->form_validation->set_rules(
-				"apellidos", "Apellidos", "trim|required", ['required' => 'Debe ingresar los %s.']
+				"apellido_paterno", "Apellido Paterno", "trim|required", ['required' => 'Debe ingresar el campo %s.']
 			);
 			$this->form_validation->set_rules(
-				"colegiatura", "Colegiatura", "trim|required", ['required' => 'Debe ingresar la %s.']
+				"tipo_documento", "Tipo de documento", "trim|required", ['required' => 'Debe ingresar el campo %s.']
+			);
+			$this->form_validation->set_rules(
+				"nro_documento", "Nro. de documento", "trim|required", ['required' => 'Debe ingresar el campo %s.']
+			);
+			$this->form_validation->set_rules(
+				"colegiatura", "Colegiatura", "trim|required", ['required' => 'Debe ingresar el campo %s.']
 			);
 			if ($this->form_validation->run() == false) {
 				$this->session->set_flashdata("danger", validation_errors());
 				$this->layout->view("nuevo", $data);
 			} else {
-				$d["nombres"]     = $this->input->post("nombres", true);
-				$d["apellidos"]   = $this->input->post("apellidos", true);
-				$d["idDocumento"] = 1;
-				$d["documento"]   = $this->input->post("colegiatura", true);
-				$doctor           = $this->Doctores_model->buscar_documento($d["documento"]);
+				$d["nombre_primer"]    = $this->input->post("primer_nombre", true);
+				$d["nombre_segundo"]   = $this->input->post("segundo_nombre", true);
+				$d["apellido_primer"]  = $this->input->post("apellido_paterno", true);
+				$d["apellido_segundo"] = $this->input->post("apellido_materno", true);
+				$d["idTipoDocumento"]  = $this->input->post("tipo_documento", true);
+				$d["numero_documento"] = $this->input->post("tipo_documento", true);
+				$idUsuario             = $this->input->post("usuario", true);
+				$doc["idDoctor"]       = $idUsuario;
+				$doc["colegiatura"]    = $this->input->post("colegiatura", true);
+				$doc["validado"]       = 1;
+				$doctor                = $this->Doctores_model->buscar_documento($doc["colegiatura"]);
 				if ($doctor) {
 					header("Location: " . base_url("Doctores/nuevo"));
 					$this->session->set_flashdata(
@@ -58,7 +70,22 @@ class Doctores extends MY_Controller
 					);
 					$this->layout->view("nuevo", $data);
 				} else {
-					$this->Doctores_model->create_doctor($d);
+					$this->Usuario_model->update_usuario($idUsuario, $d);
+					$this->Doctores_model->create_doctor($doc);
+					$especialidades = $this->input->post("especialidades", true);
+					if($especialidades) {
+						$list = json_decode($especialidades);
+						if($list && count($list) > 0) {
+							foreach ($list as $esp) {
+								$arr = ['idTipoEspecialidad' => $esp->tipo_especialidad,
+								        'idDoctor' => $idUsuario,
+								        'codigo' => $esp->codigo,
+								        'nombre' => $esp->nombre,
+								        'certificacion' => $esp->certificacion];
+								$this->Doctores_model->create_especialidad($arr);
+							}
+						}
+					}
 					if ($this->db->trans_status() == false) {
 						$this->session->set_flashdata(
 							"danger", "No se pudo registrar el doctor, Colegiatura existe en registro"
@@ -154,5 +181,67 @@ class Doctores extends MY_Controller
 		}
 
 		return $data;
+	}
+
+	public function limpiarTextoCMP($texto) {
+		$texto = preg_replace("/<br>|\n|\r/", "", $texto);
+		$texto =  preg_replace("/<tr>/", "", $texto);
+		$texto =  preg_replace("/<\/tr>/", "", $texto);
+		$texto =  preg_replace("/<\/body>/", "", $texto);
+		return trim(preg_replace("/<\/td>/", "", $texto));
+	}
+
+	public function validarCMP($cmp) {
+		$url = "https://200.48.13.39/cmp/php/detallexmedico.php?id=" . $cmp; //direccion web - cisisego
+		$ch  = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+		$response = curl_exec($ch);
+		curl_close($ch);
+		preg_match('/<div id="wrapper">(.*?)<\/div>/s', $response, $match);
+		//tabla 1: Datos de nombre
+		preg_match('/<table id="simple-example-table1" cellspacing="0">(.*?)<\/table>/s', $match[1], $tabla1);
+		preg_match('/<tr>(.*?)<\/tr>/s', $tabla1[1], $detalle1);
+		$parts    = explode('<td>', trim($detalle1[1]));
+		$apellido = str_replace("</td>", '', $parts[2]);
+		$apellido = preg_replace("/<br>|\n|\r/", "", $apellido);
+		$apellido = trim($apellido);
+		$nombre   = str_replace("</td>", '', $parts[3]);
+		$nombre   = preg_replace("/<br>|\n|\r/", "", $nombre);
+		$nombre   = trim($nombre);
+		preg_match('/<td>(.*?)<\/td>/s', $detalle1[1], $nombres1);
+		//tabla 2: Datos de foto
+		preg_match('/<table id="simple-example-table2" cellspacing="0">(.*?)<\/table>/s', $match[1], $tablaDatos2);
+		//tabla 3: Datos de especialidades
+		preg_match('/<table id="simple-example-table4" cellspacing="0">(.*?)<\/table>/s', $match[1], $tablaEspecialidad);
+		header('Content-type: application/json; charset=UTF-8');
+		if($nombre) {
+			$listaEspecialidad = [];
+			$especialidades    = explode('<td>', trim($tablaEspecialidad[1]));
+			$eliminado         = array_shift($especialidades);
+			if(count($especialidades) > 0) {
+				$totalEsp = count($especialidades);
+				$rondas = $totalEsp / 4;
+				$n = 1;
+				$grupos = [];
+				$arr = [];
+				for($i = 0; $i < $rondas; $i++) {
+					$suma = ($n == 1) ? 0 : 4;
+					$grupos[] = [
+						'nombre' => $this->limpiarTextoCMP($especialidades[0 + $suma]),
+						'tipo_especialidad' => $this->limpiarTextoCMP($especialidades[1 + $suma]),
+						'codigo' => $this->limpiarTextoCMP($especialidades[2 + $suma]),
+						'certificacion' => $this->limpiarTextoCMP($especialidades[3 + $suma])
+						];
+					$n++;
+				}
+				$listaEspecialidad = $grupos;
+			}
+			echo json_encode(['error' => 0, 'nombres' => $nombre, 'apellidos' => $apellido, 'foto' => 'https://200.48.13.39/cmp/php/fotos/' . $cmp . '.jpg', 'especialidades' => $listaEspecialidad]);
+		} else {
+			echo json_encode(['error' => 1,'mensaje'=> 'Codigo no valido']);
+		}
 	}
 }

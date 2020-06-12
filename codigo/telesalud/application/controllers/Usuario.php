@@ -315,18 +315,18 @@ class Usuario extends CI_Controller
 		}
 	}
 
-    /**
-     * Encripta el password usando el metodo de seguridad mas reciente, defecto bcrypt
-     * @param $passfrase
-     *
-     * @return bool|mixed|string
-     */
-	private function encript($passfrase)
+	/**
+	 * Encripta el password usando el metodo de seguridad mas reciente, defecto bcrypt
+	 * @param $passfrase
+	 *
+	 * @return bool|mixed|string
+	 */
+	public function encript($passfrase)
 	{
-        $opciones = [
-            'cost' => 12,
-        ];
-        return password_hash($passfrase, PASSWORD_DEFAULT, $opciones);
+		$opciones = [
+			'cost' => 12,
+		];
+		return password_hash($passfrase, PASSWORD_DEFAULT, $opciones);
 	}
 
     /**

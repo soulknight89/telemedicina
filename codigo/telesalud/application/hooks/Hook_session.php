@@ -24,26 +24,21 @@ class Hook_sesion
 
 	public function check_login()
 	{
-		/*$seg = $this->ci->uri->segment(1);
+		$seg = $this->ci->uri->segment(1);
 		$ses = $this->ci->session->userdata("ses");
-		if(!$ses) {
+		/*if(!$ses) {
+			if($seg != NULL && in_array($seg,['Login','ingresar'])) {
+				redirect(base_url());
+			}
+		} else {
+			if($seg == NULL || in_array($seg,['Login'])) {
+				redirect(base_url("Principal"));
+			}
+		}*/
+		/*if(!$ses) {
 			redirect(base_url("ingresar"));
-			exit();
 		} else {
 			$per = $ses["usu_perfil"];
-			if ($seg != null) {
-				if ($seg == "ingresar" && $per == true) {
-					redirect(base_url("Pedidos"));
-				} else if ($per == false && $seg != "ingresar") {
-					redirect(base_url("ingresar"));
-				}
-			} elseif ($seg == null && $per == true) {
-				if($per == 4) {
-					redirect(base_url("Reportes/calidad"));
-				} else {
-					redirect(base_url("Pedidos"));
-				}
-			}
 		}*/
 	}
 

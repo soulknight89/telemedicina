@@ -11,7 +11,7 @@ class Doctores_model extends CI_Model
 	 */
 	public function create_doctor($data)
 	{
-		$this->db->insert("or_doctor", $data);
+		$this->db->insert("usr_doctor", $data);
 		if ($this->db->insert_id()) {
 			return $this->db->insert_id();
 		} else {
@@ -30,10 +30,20 @@ class Doctores_model extends CI_Model
 	public function buscar_documento($doc)
 	{
 		$this->db->select("*", false);
-		$this->db->from("or_doctor");
-		$this->db->where("documento", $doc);
+		$this->db->from("usr_doctor");
+		$this->db->where("colegiatura", $doc);
 
 		return $this->db->get()->row();
+	}
+
+	public function create_especialidad($data)
+	{
+		$this->db->insert("usr_doctor_especialidad", $data);
+		if ($this->db->insert_id()) {
+			return $this->db->insert_id();
+		} else {
+			return 'error';
+		}
 	}
 
 	/**
