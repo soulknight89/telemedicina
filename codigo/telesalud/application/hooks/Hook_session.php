@@ -20,12 +20,33 @@ class Hook_sesion
 		$this->ci = &get_instance();
 		!$this->ci->load->library('session') ? $this->ci->load->library('session') : false;
 		!$this->ci->load->helper('url') ? $this->ci->load->helper('url') : false;
+		//var_dump($this->ci->session->userdata("ses"));
 	}
 
 	public function check_login()
 	{
+		$activo = $this->ci->session->userdata("ses");
 		$seg = $this->ci->uri->segment(1);
-		$ses = $this->ci->session->userdata("ses");
+		if($activo) {
+			if($seg) {
+				//var_dump($seg);
+				//var_dump($this->ci->session->userdata("ses"));
+				switch ($seg) {
+					case 'Login':
+						redirect(base_url("Principal"));
+				}
+			} else {
+				redirect(base_url("Principal"));
+			}
+		} else {
+//			var_dump($seg);
+			if($seg && $seg!='Login') {
+				redirect(base_url());
+			}
+		}
+
+		/*$seg = $this->ci->uri->segment(1);
+		$ses = $this->ci->session->userdata("ses");*/
 		/*if(!$ses) {
 			if($seg != NULL && in_array($seg,['Login','ingresar'])) {
 				redirect(base_url());

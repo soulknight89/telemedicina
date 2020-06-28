@@ -30,11 +30,11 @@ if (is_cli()) {
 	$base_url = '';
 	$config["base_url"] = $base_url;
 } else if (stristr($host, "localhost") !== FALSE || (stristr($host, "192.168.") !== FALSE) || (stristr($host, "127.0.0") !== FALSE)) {
-	$base_url = $protocol . $host . "/telesalud/";
+	$base_url = $protocol . $host . "/";
 	$config["base_url"] = $base_url;
 } else {
-	$allowed_hosts = ["181.65.164.179:1005","172.30.5.10","200.48.131.32","gicsapps.com","gicsapss.com:8080","www.gicsapps.com","www.gicsapss.com:8080"];
-	$config["base_url"] = in_array($host, $allowed_hosts) ? $protocol . $host . "/telesalud/" : $protocol . $host . "/telesalud/";
+	$allowed_hosts = ["172.30.5.10","200.48.131.32","doctoraunclick.com","doctoraunclick.com:8080","www.doctoraunclick.com","www.doctoraunclick.com:8080"];
+	$config["base_url"] = in_array($host, $allowed_hosts) ? $protocol . $host . "/" : $protocol . $host . "/";
 }
 $config["template_url"] = $config["base_url"] . "templates/appwork";
 /*

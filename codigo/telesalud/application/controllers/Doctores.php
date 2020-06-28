@@ -93,7 +93,7 @@ class Doctores extends MY_Controller
 						$this->db->trans_rollback();
 					} else {
 						$this->db->trans_commit();
-						header("Location: " . base_url("mantenimiento/doctores"));
+						header("Location: " . base_url("Principal"));
 						$this->session->set_flashdata("success", "Doctor registrado correctamente");
 					}
 				}
@@ -243,5 +243,53 @@ class Doctores extends MY_Controller
 		} else {
 			echo json_encode(['error' => 1,'mensaje'=> 'Codigo no valido']);
 		}
+	}
+
+	public function horarios() {
+		$data             = [];
+		$idDoc            = $this->usu_id;
+		$data['dias']     = $this->Doctores_model->leerDias();
+		$data['horarios'] = $this->Doctores_model->horariosDoctor($idDoc);
+		if ($this->input->post()) {
+			$datos['horaInicio'] = $this->input->post('hora_inicio');
+			$datos['horaFin']    = $this->input->post('hora_fin');
+			$diasx               = $this->input->post('dias');
+			if ($diasx && count($diasx) > 0) {
+				//buscar dia y doctor si existe solo actualizar, si no existe crear
+				if ($datos['horaInicio'] > $datos['horaFin']) {
+					$this->session->set_flashdata("danger", "Debe elegir al menos un dia");
+				} else {
+					foreach ($diasx as $dias) {
+						$res = $this->Doctores_model->buscarExisteHorario($idDoc, $dias);
+						if ($res && count($res) == 1) {
+							$registro         = $res[0]->idHorario;
+							$actualizar       = $this->Doctores_model->actualizarHorarioDoctor($registro, $datos);
+						} else {
+							$datos['idDia']    = $dias;
+							$datos['idDoctor'] = $idDoc;
+							$insertado         = $this->Doctores_model->registrarHorarioDoctor($datos);
+						}
+					}
+					$data['horarios'] = $this->Doctores_model->horariosDoctor($idDoc);
+				}
+			} else {
+				$this->session->set_flashdata("danger", "Debe elegir al menos un dia");
+			}
+		}
+		$this->layout->view("Horarios", $data);
+	}
+
+	public function nextcitas() {
+		$data          = [];
+		$idDoc         = $this->usu_id;
+		$data['citas'] = $this->Doctores_model->leerCitasFuturas($idDoc);
+		$this->layout->view("futurasCitas", $data);
+	}
+
+	public function pastcitas() {
+		$data          = [];
+		$idDoc         = $this->usu_id;
+		$data['citas'] = $this->Doctores_model->leerCitasAntiguas($idDoc);
+		$this->layout->view("antiguasCitas", $data);
 	}
 }
