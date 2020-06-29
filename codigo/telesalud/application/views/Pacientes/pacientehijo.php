@@ -7,11 +7,11 @@
 	$hoy = date('Y-m-d');
 ?>
 <h4 class="font-weight-bold py-3 mb-4">
-	<span class="text-muted font-weight-light">Pacientes /</span> Completar datos
+	<span class="text-muted font-weight-light">Pacientes /</span> Nuevo Paciente
 </h4>
 <div class="card">
 	<h6 class="card-header px-5">
-		Por favor complete los siguientes datos antes de hacer uso de nuestros servicios
+		Por favor registre los datos del nuevo paciente que hara uso de nuestra plataforma
 	</h6>
 	<div class="card-body px-5">
 		<div class="col-12">
@@ -77,21 +77,19 @@
 				</div>
 			<?php } ?>
 		</div>
-		<form action="<?= base_url('Pacientes/nuevo'); ?>" method="post" enctype="multipart/form-data">
+		<form action="<?= base_url('Pacientes/agregarpaciente'); ?>" method="post" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-lg-6 col-xl-5 py-2">
 					<label for="nombres" class="font-weight-bold">Nombres</label>
 					<input type="text" name="nombres" id="nombres" class="form-control" placeholder="Nombres"
 						   autocomplete="off"
-						   value="<?= trim($datosUsuario->nombre_primer . ' ' . $datosUsuario->nombre_segundo); ?>"
-						   required/>
+						   value="" required/>
 				</div>
 				<div class="col-lg-6 col-xl-5 py-2">
 					<label for="apellidos" class="font-weight-bold">Apellidos</label>
 					<input type="text" name="apellidos" id="apellidos" class="form-control" placeholder="Apellidos"
 						   autocomplete="off"
-						   value="<?= trim($datosUsuario->apellido_primer . ' ' . $datosUsuario->apellido_segundo); ?>"
-						   required/>
+						   value="" required/>
 				</div>
 				<div class="col-lg-4 col-xl-2 py-2">
 					<label for="sexo" class="font-weight-bold">Sexo</label>

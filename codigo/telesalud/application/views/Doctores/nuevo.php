@@ -38,7 +38,7 @@ $datos = (object) $_SESSION['ses'];
 							<option value="">Seleccione</option>
 							<option value="1">DNI</option>
 							<option value="2">CE</option>
-							<option value="3">Pasaporte</option>
+							<!--option value="3">Pasaporte</option-->
 						</select>
 					</div>
 					<div class="col-md-3">

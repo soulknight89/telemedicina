@@ -3,7 +3,6 @@
 	 * Variables dias: representa los dias disponibles 1-7, horarios es un arreglo con horarios registrados
 	 * @var $citas array
 	 */
-
 ?>
 <h4 class="font-weight-bold py-3 mb-4">
 	<span class="text-muted font-weight-light">Doctores /</span> Citas Pasadas

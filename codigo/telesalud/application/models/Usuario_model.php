@@ -45,8 +45,25 @@ class Usuario_model extends CI_Model
 	public function buscar_usuario($usu)
 	{
 		$this->db->select("*", false);
-		$this->db->from("or_usuarios");
-		$this->db->where("idUsuario", $usu);
+		$this->db->from("usr_usuarios");
+		$this->db->where("idUser", $usu);
+
+		return $this->db->get()->row();
+	}
+
+	/**
+	 * Function: Buscar datos
+	 * Description: Busca si el usuario tambien esta registrado como doctor con el id id $usu
+	 *
+	 * @param $usu
+	 *
+	 * @return object
+	 */
+	public function buscar_usuario_doctor($usu)
+	{
+		$this->db->select("*", false);
+		$this->db->from("usr_doctor");
+		$this->db->where("idDoctor", $usu);
 
 		return $this->db->get()->row();
 	}
@@ -105,6 +122,7 @@ class Usuario_model extends CI_Model
             concat(USU.nombre_primer,' ', USU.apellido_primer) as nombre_mostrar,
             USU.telefono, 	
             USU.idPerfil,
+            USU.fotoperfil,
             PER.nombre AS perfil", false
         );
         $this->db->from("usr_usuarios USU");

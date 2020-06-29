@@ -3,6 +3,10 @@ $titulo      = "Dr a un click";
 $this->ci    = &get_instance();
 $ses         = $this->session->userdata("ses");
 $per_noc     = $ses['usu_nombres'] . ' ' . $ses['usu_apellidos'];
+$doctor_val  = $ses['usu_doctor'];
+$usu_foto 	 = $ses['usu_foto'];
+$vacioFoto	 = 'imagen/perfil.png';
+$fotoTmp	 = ($usu_foto) ? 'pacfls/fotos/' . $ses['usu_id'] . '/' . $usu_foto : $vacioFoto;
 $id_perfil   = $ses['usu_perfil'];
 $controlador = $this->ci->uri->segment(1);
 $uri         = base_url(uri_string());
@@ -13,8 +17,8 @@ $uri         = base_url(uri_string());
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
-	<meta name="author" content="tgestiona">
-	<link rel="icon" type="image/png" href="<?= template_url('img/logo.png') ?>">
+	<meta name="author" content="doctor a un click">
+	<link rel="icon" type="image/png" href="<?= template_url('assets/img/logo.png') ?>">
 	<title><?= $titulo ?></title>
 	<!--Core CSS -->
 	<link rel="stylesheet" href="<?= template_url("assets/vendor/fonts/fontawesome.css") ?>">
@@ -74,7 +78,7 @@ $uri         = base_url(uri_string());
             <svg viewBox="0 0 148 80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><linearGradient id="a" x1="46.49" x2="62.46" y1="53.39" y2="48.2" gradientUnits="userSpaceOnUse"><stop stop-opacity=".25" offset="0"></stop><stop stop-opacity=".1" offset=".3"></stop><stop stop-opacity="0" offset=".9"></stop></linearGradient><linearGradient id="e" x1="76.9" x2="92.64" y1="26.38" y2="31.49" xlink:href="#a"></linearGradient><linearGradient id="d" x1="107.12" x2="122.74" y1="53.41" y2="48.33" xlink:href="#a"></linearGradient></defs><path style="fill: #fff;" transform="translate(-.1)" d="M121.36,0,104.42,45.08,88.71,3.28A5.09,5.09,0,0,0,83.93,0H64.27A5.09,5.09,0,0,0,59.5,3.28L43.79,45.08,26.85,0H.1L29.43,76.74A5.09,5.09,0,0,0,34.19,80H53.39a5.09,5.09,0,0,0,4.77-3.26L74.1,35l16,41.74A5.09,5.09,0,0,0,94.82,80h18.95a5.09,5.09,0,0,0,4.76-3.24L148.1,0Z"></path><path transform="translate(-.1)" d="M52.19,22.73l-8.4,22.35L56.51,78.94a5,5,0,0,0,1.64-2.19l7.34-19.2Z" fill="url(#a)"></path><path transform="translate(-.1)" d="M95.73,22l-7-18.69a5,5,0,0,0-1.64-2.21L74.1,35l8.33,21.79Z" fill="url(#e)"></path><path transform="translate(-.1)" d="M112.73,23l-8.31,22.12,12.66,33.7a5,5,0,0,0,1.45-2l7.3-18.93Z" fill="url(#d)"></path></svg>
             Dr a un click
           </span-->
-					<a href="index.html" class="app-brand-text demo sidenav-text font-weight-normal ml-2">
+					<a href="<?= base_url();?>" class="app-brand-text demo sidenav-text font-weight-normal ml-2">
 						<img src="<?= template_url("assets/img/drclick.png")?>" width="150px" alt="logo" title="logo"/>
 					</a>
 					<a href="javascript:void(0)" class="layout-sidenav-toggle sidenav-link text-large ml-auto">
@@ -99,7 +103,7 @@ $uri         = base_url(uri_string());
 								</a>
 							</li>
 							<li class="sidenav-item">
-								<a href="#" onclick="alert('En desarrollo');return false;" class="sidenav-link">
+								<a href="<?= base_url('Principal/misdatos')?>" class="sidenav-link">
 									<div>Mis datos</div>
 								</a>
 							</li>
@@ -115,7 +119,7 @@ $uri         = base_url(uri_string());
 							</li>
 						</ul>
 					</li>
-
+					<?php if($doctor_val == 1) { ?>
 					<!-- Layouts -->
 					<li class="sidenav-item">
 						<a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-ios-albums"></i>
@@ -144,6 +148,7 @@ $uri         = base_url(uri_string());
 							</li>
 						</ul>
 					</li>
+					<?php } ?>
 
 					<li class="sidenav-divider mb-1"></li>
 
@@ -311,14 +316,14 @@ $uri         = base_url(uri_string());
 							<div class="demo-navbar-user nav-item dropdown">
 								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                   <span class="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
-                    <img src="<?= template_url("assets/img/avatars/1.png")?>" alt class="d-block ui-w-30 rounded-circle">
+                    <img src="<?= base_url() . $fotoTmp; ?>" alt class="d-block ui-w-30 rounded-circle">
                     <span class="px-1 mr-lg-2 ml-2 ml-lg-0"><?= $ses['usu_mostrar'] ?></span>
                   </span>
 								</a>
 								<div class="dropdown-menu dropdown-menu-right">
-									<a href="javascript:void(0)" class="dropdown-item"><i class="ion ion-ios-person text-lightest"></i> &nbsp; My profile</a>
-									<a href="javascript:void(0)" class="dropdown-item"><i class="ion ion-ios-mail text-lightest"></i> &nbsp; Messages</a>
-									<a href="javascript:void(0)" class="dropdown-item"><i class="ion ion-md-settings text-lightest"></i> &nbsp; Account settings</a>
+									<a href="<?= base_url('Principal/misdatos')?>" class="dropdown-item"><i class="ion ion-ios-person text-lightest"></i> &nbsp; Mis Datos</a>
+									<!--a href="javascript:void(0)" class="dropdown-item"><i class="ion ion-ios-mail text-lightest"></i> &nbsp; Messages</a-->
+									<a href="<?= base_url('Usuario/claveNueva')?>" class="dropdown-item"><i class="ion ion-md-settings text-lightest"></i> &nbsp; Cambiar clave</a>
 									<div class="dropdown-divider"></div>
 									<a href="<?= base_url('Login/logout');?>" class="dropdown-item"><i class="ion ion-ios-log-out text-danger"></i> &nbsp; Cerrar sesión</a>
 								</div>
